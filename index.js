@@ -4,6 +4,7 @@ var teamTwoScore = [];
 var teamOneName = "CSK";
 var teamTwoName = "Mumbai Indians";
 var matchOver = false;
+var strikeChange = false;
 var turn;
 selectTurn();
 updateButtonText();
@@ -19,7 +20,6 @@ document.getElementById("strike-button").addEventListener("click", e => {
 		} else {
 			teamTwoScore.push(run);
 		}
-		turn = turn == 1 ? 2 : 1;
 		updateButtonText();
 		updateScore();
 	}
@@ -46,6 +46,13 @@ function updateButtonText() {
 			} Wins`;
 		}
 	} else {
+		if (
+			(teamOneScore.length == 6 || teamTwoScore.length == 6) &&
+			strikeChange == false
+		) {
+			strikeChange = true;
+			turn = turn == 1 ? 2 : 1;
+		}
 		button.textContent = `Strike (${
 			turn == 1 ? teamOneName : teamTwoName
 		})`;
